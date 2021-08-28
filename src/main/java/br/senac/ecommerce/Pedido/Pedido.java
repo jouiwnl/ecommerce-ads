@@ -1,4 +1,4 @@
-package Pedido;
+package br.senac.ecommerce.Pedido;
 
 import br.senac.ecommerce.cliente.Cliente;
 import lombok.Builder;
