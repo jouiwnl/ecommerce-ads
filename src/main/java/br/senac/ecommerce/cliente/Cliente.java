@@ -30,7 +30,6 @@ public class Cliente implements Serializable {
     @Column
     private String email;
 
-    @Column(name = "tipoCliente")
     @Enumerated(value = EnumType.STRING)
     private TipoCliente tipo;
 
