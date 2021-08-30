@@ -31,4 +31,26 @@ public interface ClienteRepresentation {
         }
     }
 
+    @Getter
+    @Setter
+    @Builder
+    class ClienteDetalhes {
+        private Long id;
+        private String nome;
+        private String cpfCnpj;
+        private String endereco;
+        private String email;
+        private TipoCliente tipo;
+
+        public static ClienteDetalhes from(Cliente cliente){
+            return ClienteDetalhes.builder()
+                    .id(cliente.getId())
+                    .nome(cliente.getNome())
+                    .cpfCnpj(cliente.getCpfCnpj())
+                    .endereco(cliente.getEndereco())
+                    .email(cliente.getEmail())
+                    .tipo(cliente.getTipo()).build();
+        }
+    }
+
 }

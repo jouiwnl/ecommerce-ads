@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public enum TipoCliente {
 
     FISICA("F", "Pessoa física"),

@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,10 +17,32 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    public ResponseEntity<List<Cliente>> findAll() {
-        List<Cliente> cliente = clienteService.findAll();
+    @GetMapping
+    public ResponseEntity<List<ClienteRepresentation.ListaCliente>> findAll() {
+        List<ClienteRepresentation.ListaCliente> list = ClienteRepresentation.ListaCliente.from(clienteService.findAll());
 
-        return ResponseEntity.ok().body(cliente);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("{clienteId}")
+    public ClienteRepresentation.ClienteDetalhes find(@PathVariable(name = "clienteId") Long clienteId) {
+        ClienteRepresentation.ClienteDetalhes cliente = ClienteRepresentation.ClienteDetalhes.from(clienteService.findById(clienteId));
+
+        return cliente;
+    }
+
+    @PostMapping
+    public ResponseEntity<Cliente> insert(@RequestBody Cliente cliente) {
+        Cliente obj = clienteService.insert(cliente);
+
+        return ResponseEntity.ok(obj);
+    }
+
+    @PutMapping("{clienteId}")
+    public ResponseEntity<Cliente> update(@RequestBody Cliente cliente, @PathVariable("clienteId") Long clienteId){
+        Cliente newCliente = clienteService.update(cliente, clienteId);
+
+        return ResponseEntity.ok(newCliente);
     }
 
 }
